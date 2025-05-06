@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>梦幻雪花互动网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+        }
+        
+        .nav-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 25px;
+            cursor: pointer;
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn:hover::before {
+            left: 0;
+        }
+        
+        /* 内容区域样式 */
+        .content {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            min-height: 100vh;
+            padding: 50px;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 雪花样式 */
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+        }
+        
+        /* 鼠标特效 */
+        .cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            z-index: 1000;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-follower {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+            transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                margin: 5px 0;
+                width: 80%;
+                text-align: center;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="nav-btn" data-section="section1">冬日仙境</button>
+            <button class="nav-btn" data-section="section2">雪花科学</button>
+            <button class="nav-btn" data-section="section3">冬季活动</button>
+            <button class="nav-btn" data-section="section4">关于我们</button>
+        </div>
+    </nav>
+    
+    <!-- 鼠标特效元素 -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- 内容区域 -->
+    <div class="content">
+        <section id="section1" class="section">
+            <h2>冬日仙境</h2>
+            <p>欢迎来到我们的冬日仙境！这里是一个充满魔法与奇迹的地方，雪花轻轻飘落，为大地披上银装。每一片雪花都是大自然的杰作，独一无二，美不胜收。</p>
+            <p>冬季是一年中最神奇的季节，当温度下降，水汽凝结，无数精致的冰晶从天空缓缓飘落，形成我们所见到的雪花。这些雪花在阳光照射下闪闪发光，如同无数颗小钻石洒落人间。</p>
+            <p>在我们的冬日仙境中，您可以体验到最纯粹的冬季之美。远离城市喧嚣，沉浸在宁静的雪景中，感受大自然的鬼斧神工。</p>
+        </section>
+        
+        <section id="section2" class="section">
+            <h2>雪花科学</h2>
+            <p>雪花是由冰晶构成的降水形式，通常在温度低于0°C时形成。每一片雪花都是六边形对称结构，但由于形成过程中温度和湿度的微小变化，没有两片雪花是完全相同的。</p>
+            <p>雪花的形状主要取决于温度和过饱和度。在-2°C左右，雪花倾向于形成薄片状；在-5°C左右，形成柱状；在-15°C左右，形成星状；而在-30°C左右，又会形成柱状或针状晶体。</p>
+            <p>科学家Wilson Bentley是第一个成功拍摄雪花显微照片的人，他一生中拍摄了5000多张雪花照片，为雪花研究做出了巨大贡献。</p>
+        </section>
+        
+        <section id="section3" class="section">
+            <h2>冬季活动</h2>
+            <p>冬季虽然寒冷，但却提供了许多独特的娱乐活动。滑雪、滑冰、雪橇、冰雕等都是冬季特有的娱乐方式，让人们在寒冷季节也能享受户外活动的乐趣。</p>
+            <p>滑雪是最受欢迎的冬季运动之一，分为高山滑雪、越野滑雪和自由式滑雪等多种形式。无论您是初学者还是专业人士，都能找到适合自己的滑雪方式。</p>
+            <p>冰雕艺术是冬季另一大亮点。艺术家们利用冰块创作出各种精美的雕塑，在灯光照射下呈现出梦幻般的效果。许多城市都会举办冰雕节，吸引大量游客前来观赏。</p>
+        </section>
+        
+        <section id="section4" class="section">
+            <h2>关于我们</h2>
+            <p>我们是一个热爱冬季、热爱雪花的团队，致力于向世界展示冬季的美丽与神奇。我们的成员包括气象学家、摄影师、户外运动爱好者和自然爱好者。</p>
+            <p>我们的使命是通过精美的视觉效果和科学的知识传播，让更多人了解和欣赏冬季的独特魅力。我们相信，冬季不应该只是寒冷和黑暗的代名词，而应该是一个充满美丽和欢乐的季节。</p>
+            <p>如果您对我们的工作感兴趣，或者有任何建议和意见，欢迎通过以下方式联系我们。我们期待听到您的声音！</p>
+        </section>
+    </div>
+    
+    <script>
+        // 雪花特效
+        function createSnowflakes() {
+            const snowflakesContainer = document.createElement('div');
+            document.body.appendChild(snowflakesContainer);
+            
+            // 创建200片雪花
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const snowflake = document.createElement('div');
+                    snowflake.classList.add('snowflake');
+                    
+                    // 随机大小
+                    const size = Math.random() * 15 + 5;
+                    snowflake.style.width = `${size}px`;
+                    snowflake.style.height = `${size}px`;
+                    
+                    // 随机位置
+                    const startX = Math.random() * window.innerWidth;
+                    const endX = startX + (Math.random() * 200 - 100);
+                    const startY = -50;
+                    const endY = window.innerHeight + 50;
+                    
+                    snowflake.style.left = `${startX}px`;
+                    snowflake.style.top = `${startY}px`;
+                    
+                    // 随机透明度
+                    snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                    
+                    // 随机动画持续时间
+                    const duration = Math.random() * 20 + 10;
+                    
+                    // 添加动画
+                    snowflake.style.animation = `fall ${duration}s linear infinite`;
+                    
+                    // 创建关键帧
+                    const keyframes = `
+                        @keyframes fall {
+                            to {
+                                transform: translate(${endX - startX}px, ${endY - startY}px);
+                            }
+                        }
+                    `;
+                    
+                    const style = document.createElement('style');
+                    style.innerHTML = keyframes;
+                    document.head.appendChild(style);
+                    
+                    snowflakesContainer.appendChild(snowflake);
+                    
+                    // 鼠标悬停效果
+                    snowflake.addEventListener('mouseenter', () => {
+                        snowflake.style.transform = `scale(1.5)`;
+                        snowflake.style.opacity = '1';
+                        snowflake.style.background = 'rgba(255, 255, 255, 0.9)';
+                    });
+                    
+                    snowflake.addEventListener('mouseleave', () => {
+                        snowflake.style.transform = '';
+                        snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                        snowflake.style.background = 'white';
+                    });
+                }, Math.random() * 5000);
+            }
+        }
+        
+        // 鼠标特效
+        function initCursorEffect() {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+                
+                // 跟随光标有延迟效果
+                setTimeout(() => {
+                    follower.style.left = `${e.clientX}px`;
+                    follower.style.top = `${e.clientY}px`;
+                }, 100);
+            });
+            
+            // 鼠标悬停按钮效果
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+                    cursor.style.background = 'rgba(255, 255, 255, 0.8)';
+                    follower.style.width = '30px';
+                    follower.style.height = '30px';
+                    follower.style.background = 'rgba(255, 255, 255, 0.5)';
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.background = 'rgba(255, 255, 255, 0.5)';
+                    follower.style.width = '15px';
+                    follower.style.height = '15px';
+                    follower.style.background = 'rgba(255, 255, 255, 0.3)';
+                });
+            });
+            
+            // 鼠标悬停雪花效果
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.classList.contains('snowflake')) {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursor.style.background = 'rgba(200, 230, 255, 0.8)';
+                }
+            });
+            
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.classList.contains('snowflake')) {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursor.style.background = 'rgba(255, 255, 255, 0.5)';
+                }
+            });
+        }
+        
+        // 导航按钮点击效果
+        function initNavButtons() {
+            const buttons = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.section');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    // 滚动到目标区域
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // 激活目标区域
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    targetSection.classList.add('active');
+                });
+            });
+        }
+        
+        // 滚动时激活可见区域
+        function initScrollAnimation() {
+            const sections = document.querySelectorAll('.section');
+            
+            function checkVisibility() {
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    const isVisible = (
+                        rect.top <= window.innerHeight * 0.75 && 
+                        rect.bottom >= window.innerHeight * 0.25
+                    );
+                    
+                    if (isVisible) {
+                        section.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkVisibility);
+            window.addEventListener('resize', checkVisibility);
+            
+            // 初始检查
+            checkVisibility();
+        }
+        
+        // 页面加载完成后初始化所有效果
+        window.addEventListener('DOMContentLoaded', () => {
+            createSnowflakes();
+            initCursorEffect();
+            initNavButtons();
+            initScrollAnimation();
+        });
+    </script>
+</body>
+</html>
