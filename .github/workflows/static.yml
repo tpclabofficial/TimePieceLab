@@ -18,14 +18,13 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          // 简单检查test.html是否存在
           const fs = require('fs');
           if (!fs.existsSync('test.html')) {
             core.setFailed('test.html not found');
           }
     
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+    - name: Upload website assets
+      uses: actions/upload-artifact@v4  # 更新到v4版本
       with:
         name: static-website
         path: |
@@ -34,7 +33,7 @@ jobs:
           opencv.js
         retention-days: 1
         
-    # 如果需要部署到GitHub Pages，取消以下注释
+    # 如果需要部署到GitHub Pages
     # - name: Deploy to GitHub Pages
     #   uses: peaceiris/actions-gh-pages@v3
     #   if: github.ref == 'refs/heads/main'
