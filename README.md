@@ -459,7 +459,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="asset/images/19.png" alt="穿云鹰眼">
+                        <img src="WxstcOurClub/asset/images/19.png" alt="穿云鹰眼">
                     </div>
                     <div style="padding:20px; display: flex; flex-direction: column; flex: 1;">
                         <h3>穿云鹰眼</h3>
