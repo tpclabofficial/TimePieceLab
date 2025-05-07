@@ -345,7 +345,7 @@
         <!-- 导航栏 -->
         <header>
             <div class="logo">
-                <img src="asset/images/17.png" alt="时间碎片实验室logo">
+                <img src="WxstcOurClub/asset/images/17.png" alt="时间碎片实验室logo">
                 <div class="logo-text">
                     <h1 style="background:var(--primary-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">时间碎片实验室</h1>
                     <p style="color:#aaa;">Timepiece Laboratory</p>
@@ -404,7 +404,7 @@
             <div class="team-members">
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="asset/images/5.jpg" alt="陈一菲" style="object-fit: cover; width: 100%; height: 100%;">
+                        <img src="WxstcOurClub/asset/images/5.jpg" alt="陈一菲" style="object-fit: cover; width: 100%; height: 100%;">
                     </div>
                     <h3>陈一菲</h3>
                     <p style="color:var(--secondary-color);">人工智能精英</p>
@@ -416,7 +416,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="asset/images/4.jpg" alt="储天溢" style="object-fit: cover; width: 100%; height: 100%;">
+                        <img src="WxstcOurClub/asset/images/4.jpg" alt="储天溢" style="object-fit: cover; width: 100%; height: 100%;">
                     </div>
                     <h3>储天溢</h3>
                     <p style="color:var(--secondary-color);">集成电路爱好者</p>
@@ -428,7 +428,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="asset/images/7.jpg" alt="张嘉仪" style="object-fit: cover; width: 100%; height: 100%;">
+                        <img src="WxstcOurClub/asset/images/7.jpg" alt="张嘉仪" style="object-fit: cover; width: 100%; height: 100%;">
                     </div>
                     <h3>张嘉仪</h3>
                     <p style="color:var(--secondary-color);">物联网项目爱好者</p>
@@ -440,7 +440,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="asset/images/6.jpg" alt="朱凯" style="object-fit: cover; width: 100%; height: 100%;">
+                        <img src="WxstcOurClub/asset/images/6.jpg" alt="朱凯" style="object-fit: cover; width: 100%; height: 100%;">
                     </div>
                     <h3>朱凯</h3>
                     <p style="color:var(--secondary-color);">机器学习研究者</p>
@@ -459,7 +459,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="WxstcOurClub/asset/images/19.png" alt="穿云鹰眼">
+                        <img src="WxstcOurClub/WxstcOurClub/asset/images/19.png" alt="穿云鹰眼">
                     </div>
                     <div style="padding:20px; display: flex; flex-direction: column; flex: 1;">
                         <h3>穿云鹰眼</h3>
@@ -473,7 +473,7 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="asset/images/18.png" alt="基于yolov8的窨井盖检测系统">
+                        <img src="WxstcOurClub/asset/images/18.png" alt="基于yolov8的窨井盖检测系统">
                     </div>
                     <div style="padding:20px; display: flex; flex-direction: column; flex: 1;">
                         <h3>基于yolov8的窨井盖检测系统</h3>
@@ -487,7 +487,7 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="asset/images/20.png" alt="自主组装的五寸穿越机">
+                        <img src="WxstcOurClub/asset/images/20.png" alt="自主组装的五寸穿越机">
                     </div>
                     <div style="padding:20px; display: flex; flex-direction: column; flex: 1;">
                         <h3>自主组装的五寸穿越机</h3>
@@ -509,7 +509,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="asset/images/1.png" alt="挑战杯校赛">
+                        <img src="WxstcOurClub/asset/images/1.png" alt="挑战杯校赛">
                     </div>
                     <div style="padding:20px; display: flex; flex-direction: column; flex: 1;">
                         <h3>挑战杯校赛</h3>
@@ -523,7 +523,7 @@
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="asset/images/2.png" alt="大学生人工智能创新应用选拔赛">
+                        <img src="WxstcOurClub/asset/images/2.png" alt="大学生人工智能创新应用选拔赛">
                     </div>
                     <div style="padding:20px; display: flex; flex-direction: column; flex: 1;">
                         <h3>大学生人工智能创新应用选拔赛</h3>
